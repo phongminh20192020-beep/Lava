@@ -2,6 +2,9 @@
 FROM gradle:8-jdk17 AS build
 WORKDIR /build
 COPY . .
+RUN git init && \
+    git add -A && \
+    git -c user.email="build@railway.app" -c user.name="Railway" commit -m "build" --allow-empty
 RUN gradle :LavalinkServer:bootJar --no-daemon
 
 # Stage 2: Run the jar
